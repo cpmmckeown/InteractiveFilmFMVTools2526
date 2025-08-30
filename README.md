@@ -168,7 +168,4 @@ Here’s the breakdown of the schema:
 
 💡 **Tip for contributors**: Always validate your `project.json` before export — malformed IDs, missing videos, or broken `next` references will break playback.
 
----
-
-Would you like me to also draft a **`project.json` template file** with comments (like a starter kit), so you can include it in the repo right away?
  
