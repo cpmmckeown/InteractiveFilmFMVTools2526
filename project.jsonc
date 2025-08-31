@@ -1,0 +1,79 @@
+{
+  "project": {
+    "title": "My Interactive FMV",
+    "author": "Your Name",
+    "version": "1.0.0",
+    "startScene": "scene_intro",    // ID of the first scene
+    "mediaPath": "media/",          // folder for video/audio/image files
+    "description": "An experimental interactive film project."
+  },
+
+  "variables": {
+    // Global state values available throughout the story.
+    // These can be numbers, booleans, or strings.
+    "hasBadge": false,
+    "cluesFound": 0,
+    "playerName": "Agent"
+  },
+
+  "inventory": [
+    // Optional items the player can collect/use.
+    {
+      "id": "badge",
+      "name": "FBI Badge",
+      "description": "Proof of your authority.",
+      "icon": "badge.png"
+    }
+  ],
+
+  "scenes": [
+    {
+      "id": "scene_intro",
+      "video": "intro.mp4",         // main video file for this scene
+      "audio": null,                // optional background audio (null if unused)
+      "description": "The opening scene of the story.",
+      
+      "choices": [
+        {
+          "id": "choice_follow",
+          "label": "Follow the suspect",
+          "next": "scene_alley",    // ID of the next scene
+          "conditions": [],         // requirements (e.g. ["hasBadge == true"])
+          "effects": { "cluesFound": "+1" }  // state changes on selection
+        },
+        {
+          "id": "choice_return",
+          "label": "Return to headquarters",
+          "next": "scene_hq"
+        }
+      ],
+
+      "timer": {
+        "duration": 10,             // seconds before auto-picking
+        "defaultChoice": "choice_return"  // ID of choice triggered on timeout
+      }
+    },
+
+    {
+      "id": "scene_alley",
+      "video": "alley.mp4",
+      "audio": null,
+      "description": "You chase the suspect into a dark alley.",
+
+      "choices": [
+        {
+          "id": "choice_show_badge",
+          "label": "Show your badge",
+          "next": "scene_interrogation",
+          "conditions": ["hasBadge == true"]  // only available if hasBadge == true
+        },
+        {
+          "id": "choice_search_trash",
+          "label": "Search the trash bin",
+          "next": "scene_trash",
+          "effects": { "cluesFound": "+1" }
+        }
+      ]
+    }
+  ]
+}
